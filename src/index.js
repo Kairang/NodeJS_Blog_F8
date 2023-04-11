@@ -2,9 +2,15 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
+const route = require('./routes');
 
 const app = express();
 const port = 8888;
+
+const db = require('./config/db');
+
+// Conect to DB
+db.conect();
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -23,10 +29,7 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources', 'views'))
 
 // Routes
-/* get method */
-app.get('/', (req, res) => res.render('home'));
-app.get('/news', (req, res) => res.render('news'));
-app.get('/login', (req, res) => res.render('login'));
+route(app);
 
 /* post method */
 app.post('/login', (req, res) => {
@@ -36,5 +39,5 @@ app.post('/login', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+    console.log(`App listening on port ${port}`);
 })
