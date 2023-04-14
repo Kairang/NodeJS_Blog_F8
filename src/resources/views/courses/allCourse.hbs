@@ -1,0 +1,24 @@
+<div class='row'>
+    <div class='col-12 mt-4'>
+        <a href='/courses/create'>
+            <button class='btn btn-primary'>CREATE NEW</button>
+        </a>
+    </div>
+
+    {{#each courses}}
+        <div class='col-sm-6 col-lg-4'>
+            <div class='card mt-4'>
+                <a href='/courses/{{this.slug}}'>
+                    <img class='card-img-top' src='{{this.image}}' alt='Card image cap' />
+                </a>
+                <div class='card-body'>
+                    <a href='/courses/{{this.slug}}'>
+                        <h5 class='card-title'>{{this.name}}</h5>
+                    </a>
+                    <p class='card-text'>{{this.desc}}</p>
+                    <a href='#' class='btn btn-primary'>Dang Ky</a>
+                </div>
+            </div>
+        </div>
+    {{/each}}
+</div>
