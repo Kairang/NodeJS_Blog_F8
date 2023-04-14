@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
 async function conect() {
+    const URL = 'mongodb://localhost:27017/f8_education_dev';
 
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/f8_education_dev');
+        await mongoose.connect(URL);
 
         console.log("Conect successfully!");
     } catch (e) {
