@@ -48,7 +48,21 @@ function coursesController() {
 
         // [DELETE] /courses/:id
         destroy(req, res, next) {
+            Course.delete({ _id: req.params.id })
+                .then(() => res.redirect('back'))
+                .catch(next);
+        },
+
+        // [DELETE] /courses/force/:id
+        forceDestroy(req, res, next) {
             Course.deleteOne({ _id: req.params.id })
+                .then(() => res.redirect('back'))
+                .catch(next);
+        },
+
+        // [PATCH] /courses/restore/:id
+        restore(req, res, next) {
+            Course.restore({ _id: req.params.id })
                 .then(() => res.redirect('back'))
                 .catch(next);
         },

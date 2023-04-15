@@ -10,11 +10,24 @@ function MeController() {
     return {
         // [GET] /me/stored/courses
         storedCourses(req, res, next) {
-            Course.find({})
-                .then((courses) => res.render("me/stored-courses", {
-                    courses: multipleMongooseToObject(courses)
-                }))
-                .catch(next);
+            Promise.all([Course.find({}), Course.countDeleted()])
+                .then(([courses, num]) =>
+                    res.render("me/stored-courses", {
+                        num,
+                        courses: multipleMongooseToObject(courses)
+                    })
+                ).catch(next);
+        },
+
+        // [GET] /me/trash/courses
+        trashCourses(req, res, next) {
+            Promise.all([Course.findDeleted({}), Course.count()])
+                .then(([courses, num]) =>
+                    res.render("me/trash-courses", {
+                        num,
+                        courses: multipleMongooseToObject(courses)
+                    })
+                ).catch(next);
         },
 
         // [GET] /me/stored/news
