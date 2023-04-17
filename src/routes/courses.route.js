@@ -10,6 +10,7 @@ const coursesController = require('../app/controllers/CoursesController');
 
 router.get('/create', coursesController.createCourse);
 router.post('/store', coursesController.store);
+router.post('/handle-form-actions', coursesController.handleFormActions);
 router.get('/:slug', coursesController.getCourse);
 router.get('/edit/:id', coursesController.editCourse);
 router.put('/:id', coursesController.update);
