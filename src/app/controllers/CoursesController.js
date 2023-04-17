@@ -67,6 +67,29 @@ function coursesController() {
                 .catch(next);
         },
 
+        // [POST] /courses/handle-form-actions
+        handleFormActions(req, res, next) {
+            switch (req.body.action) {
+                case 'delete':
+                    Course.delete({ _id: { $in: req.body.courseItems } })
+                        .then(() => res.redirect('back'))
+                        .catch(next);
+                    break;
+                case 'force-delete':
+                    Course.deleteOne({ _id: { $in: req.body.courseItems } })
+                        .then(() => res.redirect('back'))
+                        .catch(next);
+                    break;
+                case 'restore':
+                    Course.restore({ _id: { $in: req.body.courseItems } })
+                        .then(() => res.redirect('back'))
+                        .catch(next);
+                    break;
+                default:
+                    break;
+            }
+        },
+
         // [POST] /courses/store
         store(req, res, next) {
             const formData = { ...req.body };
