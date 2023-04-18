@@ -10,7 +10,10 @@ function MeController() {
     return {
         // [GET] /me/stored/courses
         storedCourses(req, res, next) {
-            Promise.all([Course.find({}), Course.countDeleted()])
+            Promise.all([
+                Course.find({}).sortable(req),
+                Course.countDeleted()
+            ])
                 .then(([courses, num]) =>
                     res.render("me/stored-courses", {
                         num,

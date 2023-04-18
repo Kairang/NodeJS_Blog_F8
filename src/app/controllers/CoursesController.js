@@ -30,6 +30,18 @@ function coursesController() {
             res.render('courses/create');
         },
 
+        // [POST] /courses/store
+        store(req, res, next) {
+            req.body.image = `https://img.youtube.com/vi/${req.body.videoId}/hqdefault.jpg`;
+            const newCourse = new Course(req.body);
+
+            newCourse.save();
+
+            res.json(newCourse);
+            // .then(() => res.redirect('/courses'))
+            // .catch(err => console.log(err));
+        },
+
         // [GET] /courses/edit/:id
         editCourse(req, res, next) {
             Course.findById(req.params.id)
@@ -89,18 +101,6 @@ function coursesController() {
                     break;
             }
         },
-
-        // [POST] /courses/store
-        store(req, res, next) {
-            const formData = { ...req.body };
-            formData.image = `https://img.youtube.com/vi/${req.body.videoId}/hqdefault.jpg`;
-
-            const course = new Course(formData);
-
-            course.save()
-                .then(() => res.redirect('/courses'))
-                .catch(err => { console.log(err) })
-        }
     }
 }
 
